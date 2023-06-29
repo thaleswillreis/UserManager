@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+
+  auth-db:
+    image: postgres:latest
+    container_name: "auth-db"
+    environment:
+      - POSTGRES_DB=authdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234567
+    ports:
+      - 5432:5432
