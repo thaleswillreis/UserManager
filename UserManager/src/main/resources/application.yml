@@ -1,7 +1,7 @@
 # Spring Boot configuration
 spring:
   profiles:
-    active: development
+    active: dev
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
