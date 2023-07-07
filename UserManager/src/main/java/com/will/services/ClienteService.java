@@ -31,8 +31,12 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
+	
+	public List<Cliente> findAll() {
+		return repo.findAll();
+	}
 
-	public Cliente find(Integer id) {
+	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -47,22 +51,18 @@ public class ClienteService {
 	}
 
 	public Cliente update(Cliente obj) {
-		Cliente newObj = find(obj.getId());
+		Cliente newObj = findById(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
-		find(id);
+		findById(id);
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Essa Cliente não está vazia! Operação não realizada!");
 		}
-	}
-
-	public List<Cliente> findAll() {
-		return repo.findAll();
 	}
 
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
@@ -71,7 +71,13 @@ public class ClienteService {
 	}
 
 	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null, null);
+		return new Cliente(
+				objDto.getId(), 
+				objDto.getNome(), 
+				objDto.getEmail(), 
+				null, 
+				null, 
+				null);
 	}
 
 	public Cliente fromDTO(ClienteNovoDTO objDto) {
