@@ -2,6 +2,7 @@ package com.will.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,7 +37,7 @@ public class ClienteService {
 		return repo.findAll();
 	}
 
-	public Cliente findById(Integer id) {
+	public Cliente findById(UUID id) {
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -56,7 +57,7 @@ public class ClienteService {
 		return repo.save(newObj);
 	}
 
-	public void delete(Integer id) {
+	public void delete(UUID id) {
 		findById(id);
 		try {
 			repo.deleteById(id);

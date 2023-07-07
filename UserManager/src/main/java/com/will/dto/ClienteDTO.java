@@ -1,6 +1,7 @@
 package com.will.dto;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.NotEmpty;
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
+	private UUID id;
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Length(min = 2, max = 100, message = "O tamanho deve ser de no mínimo 2 e no máximo 100 caracteres.")
 	private String nome;
@@ -32,11 +33,11 @@ public class ClienteDTO implements Serializable {
 		email = obj.getEmail();
 	}
 
-	public Integer getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
