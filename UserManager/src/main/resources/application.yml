@@ -20,3 +20,9 @@ spring:
 # Server configuration
 server:
   port: 8080
+
+security:
+  jwt:
+    token:
+      secret: SqkW"pzLpD4KGg_Q3*5E(KcDH)*@g"r~C~dA!^Y,C+:m[^4,EcN%nVAE@(<UaATw
+      expiration: 300000 #86400000 (5 minutos)

@@ -27,7 +27,7 @@ import com.will.services.ClienteService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping({"/clientes", "/clientes/"})
+@RequestMapping("clientes")
 public class ClienteResource {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
-	@GetMapping({"/{id}", "/{id}/"})
+	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> findById(@PathVariable UUID id) {
 		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
@@ -56,7 +56,7 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@PutMapping({"/{id}", "/{id}/"})
+	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDto, @PathVariable UUID id) {
 		Cliente obj = service.fromDTO(objDto);
 		obj.setId(id);
@@ -64,7 +64,7 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@DeleteMapping({"/{id}", "/{id}/"})
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable UUID id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();

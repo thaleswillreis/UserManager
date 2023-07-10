@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.will.domain.Cidade;
@@ -19,8 +20,9 @@ import com.will.repositories.EstadoRepository;
 
 @Service
 public class DBService {
-
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private EstadoRepository estadoRepository;
 	@Autowired
@@ -51,11 +53,11 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(uf1, uf2, uf3));
 		cidadeRepository.saveAll(Arrays.asList(mun1, mun2, mun3, mun4));
 
-		Cliente cliente1 = new Cliente(null, "Maninho", "maninho@gmail.com", "11618116487", TipoCliente.PESSOAFISICA, "123456");
+		Cliente cliente1 = new Cliente(null, "Maninho", "maninho@gmail.com", "11618116487", TipoCliente.PESSOAFISICA, passwordEncoder.encode("123456"));
 		cliente1.getTelefones().addAll(Arrays.asList("99991001122", "99984003344"));
 		cliente1.addPerfil(Perfil.CLIENTE);
 		
-		Cliente cliente2 = new Cliente(null, "Minininha", "minininha@gmail.com", "40505846381", TipoCliente.PESSOAFISICA, "654321");
+		Cliente cliente2 = new Cliente(null, "Minininha", "minininha@gmail.com", "40505846381", TipoCliente.PESSOAFISICA, passwordEncoder.encode("654321"));
 		cliente2.getTelefones().addAll(Arrays.asList("99991005566", "99984007788"));
 		cliente2.addPerfil(Perfil.ADMIN);
 

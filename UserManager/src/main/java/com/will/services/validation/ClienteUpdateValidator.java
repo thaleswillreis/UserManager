@@ -3,6 +3,7 @@ package com.will.services.validation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
@@ -33,7 +34,7 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		
 		@SuppressWarnings("unchecked")
 		Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-		Integer uriId = Integer.parseInt(map.get("id"));
+		UUID uriId = UUID.fromString(map.get("id"));
 		
 		List<FieldMessage> list = new ArrayList<>();
 		

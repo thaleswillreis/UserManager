@@ -15,7 +15,6 @@ import com.will.domain.enums.TipoCliente;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,7 +29,6 @@ public class Cliente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "id", updatable = false, unique = true, nullable = false)
 	private UUID id;
 	private String nome;
 	private String email;

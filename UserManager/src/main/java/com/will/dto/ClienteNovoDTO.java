@@ -9,7 +9,7 @@ import com.will.services.validation.ClienteInsert;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
-//Anotação personalisada, Classes 'ClientInsert', ClientInsertValidation e BR
+//Anotação personalisada
 @ClienteInsert
 public class ClienteNovoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
