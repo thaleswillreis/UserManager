@@ -1,5 +1,4 @@
 package com.will.dto;
 
-public record AuthenticationDTO(String login, String senha) {
-
+public record AuthenticationDTO(String nome, String senha) {
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.will.domain.Cliente;
@@ -41,6 +42,11 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		Cliente aux = repo.findByEmail(objDto.getEmail());
 		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email", "Email já existente"));
+		}
+		
+		UserDetails aux2 = repo.findByNome(objDto.getNome());
+		if (aux2 != null && !aux.getId().equals(uriId)) {
+			list.add(new FieldMessage("nome", "Esse nome já existente"));
 		}
 
 		for (FieldMessage e : list) {

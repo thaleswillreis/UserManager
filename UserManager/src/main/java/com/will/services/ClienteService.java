@@ -9,18 +9,20 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.will.domain.Cidade;
 import com.will.domain.Cliente;
 import com.will.domain.Endereco;
+import com.will.domain.enums.Perfil;
 import com.will.domain.enums.TipoCliente;
 import com.will.dto.ClienteDTO;
 import com.will.dto.ClienteNovoDTO;
 import com.will.repositories.ClienteRepository;
 import com.will.repositories.EnderecoRepository;
+import com.will.services.exceptions.AuthorizationException;
 import com.will.services.exceptions.DataIntegrityException;
 import com.will.services.exceptions.ObjectNotFoundException;
 
@@ -28,7 +30,7 @@ import com.will.services.exceptions.ObjectNotFoundException;
 public class ClienteService {
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ClienteRepository repo;
@@ -42,6 +44,10 @@ public class ClienteService {
 	}
 
 	public Cliente findById(UUID id) {
+		Cliente user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -107,26 +113,3 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

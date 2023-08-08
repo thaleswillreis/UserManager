@@ -6,9 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.will.domain.Cliente;
 import com.will.repositories.ClienteRepository;
-import com.will.security.UserSpringSecurity;
 
 @Service
 public class UserDetailsServiceImplementation implements  UserDetailsService {
@@ -17,16 +15,11 @@ public class UserDetailsServiceImplementation implements  UserDetailsService {
 	private ClienteRepository clienteRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Cliente cliente =clienteRepository.findByEmail(email);
-		if (cliente == null) {
-			throw new UsernameNotFoundException(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserDetails user = clienteRepository.findByNome(username);
+		if (user == null) {
+			throw new UsernameNotFoundException(username);
 		}
-		return new UserSpringSecurity(
-				cliente.getId(), 
-				cliente.getEmail(), 
-				cliente.getSenha(), 
-				cliente.getPerfis()
-				);
+		return user;
 	}
 }

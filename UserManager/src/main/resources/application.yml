@@ -20,9 +20,10 @@ spring:
 # Server configuration
 server:
   port: 8080
-
-security:
-  jwt:
-    token:
-      secret: SqkW"pzLpD4KGg_Q3*5E(KcDH)*@g"r~C~dA!^Y,C+:m[^4,EcN%nVAE@(<UaATw
-      expiration: 300000 #86400000 (5 minutos)
+# JWT Token configuration
+# para maior segurança, a secret deve ser mudada e guardada de forma segura. Ex: variável de ambiente do servidor
+jwt:
+  token:
+    secret: sqkW8pzLpD4KGg_Q3*5E(KcDH)*@g&r~C~dA!^Y,C+!m[^4,EcN%nVAE@(<UaATw
+    expiration: 1440 #tempo definido em minutos
+    timezone: -03:00 #Fuso horário do local

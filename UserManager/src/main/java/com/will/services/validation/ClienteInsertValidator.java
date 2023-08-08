@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.will.domain.Cliente;
 import com.will.domain.enums.TipoCliente;
@@ -40,6 +41,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		Cliente aux = repo.findByEmail(objDto.getEmail());
 		if (aux != null) {
 			list.add(new FieldMessage("email", "Email já existente"));
+		}
+		
+		UserDetails aux2 = repo.findByNome(objDto.getNome());
+		if (aux2 != null) {
+			list.add(new FieldMessage("nome", "Esse nome já existente"));
 		}
 		
 		for (FieldMessage e : list) {

@@ -3,7 +3,7 @@ package com.will.domain.enums;
 public enum Perfil {
 
 	ADMIN(1, "ROLE_ADMIN"),
-	CLIENTE(2, "ROLE_CLIENTE");
+	USER(2, "ROLE_USER");
 
 	private int cod;
 	private String descricao;
@@ -22,7 +22,6 @@ public enum Perfil {
 	}
 
 	public static Perfil toEnum(Integer cod) {
-
 		if (cod == null) {
 			return null;
 		}

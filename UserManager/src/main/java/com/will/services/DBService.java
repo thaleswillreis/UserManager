@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.will.domain.Cidade;
@@ -22,7 +22,7 @@ import com.will.repositories.EstadoRepository;
 public class DBService {
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private EstadoRepository estadoRepository;
 	@Autowired
@@ -32,11 +32,8 @@ public class DBService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-
 	public void instantiateTestDatabase() throws ParseException {
 
-
-		// mock cliente e endereco
 		Estado uf1 = new Estado(null, "Maranhão");
 		Estado uf2 = new Estado(null, "São Paulo");
 		Estado uf3 = new Estado(null, "Paraná");
@@ -55,7 +52,7 @@ public class DBService {
 
 		Cliente cliente1 = new Cliente(null, "Maninho", "maninho@gmail.com", "11618116487", TipoCliente.PESSOAFISICA, passwordEncoder.encode("123456"));
 		cliente1.getTelefones().addAll(Arrays.asList("99991001122", "99984003344"));
-		cliente1.addPerfil(Perfil.CLIENTE);
+		cliente1.addPerfil(Perfil.USER);
 		
 		Cliente cliente2 = new Cliente(null, "Minininha", "minininha@gmail.com", "40505846381", TipoCliente.PESSOAFISICA, passwordEncoder.encode("654321"));
 		cliente2.getTelefones().addAll(Arrays.asList("99991005566", "99984007788"));
@@ -71,6 +68,5 @@ public class DBService {
 
 		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
 		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3, end4));
-
 	}
 }
